@@ -157,11 +157,6 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
 exports.Roles = exports.$Enums.Roles = {
   admin: 'admin',
   doctor: 'doctor',

@@ -2518,7 +2518,7 @@ export namespace Prisma {
   export type LogsGroupByOutputType = {
     id: number
     uuid: string
-    doctorId: number | null
+    doctorId: number
     patientId: number
     filePath: string
     createdAt: Date
@@ -2550,7 +2550,7 @@ export namespace Prisma {
     patientId?: boolean
     filePath?: boolean
     createdAt?: boolean
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
     doctorsComments?: boolean | Logs$doctorsCommentsArgs<ExtArgs>
     _count?: boolean | LogsCountOutputTypeDefaultArgs<ExtArgs>
@@ -2563,7 +2563,7 @@ export namespace Prisma {
     patientId?: boolean
     filePath?: boolean
     createdAt?: boolean
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["logs"]>
 
@@ -2574,7 +2574,7 @@ export namespace Prisma {
     patientId?: boolean
     filePath?: boolean
     createdAt?: boolean
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["logs"]>
 
@@ -2589,31 +2589,31 @@ export namespace Prisma {
 
   export type LogsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "doctorId" | "patientId" | "filePath" | "createdAt", ExtArgs["result"]["logs"]>
   export type LogsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
     doctorsComments?: boolean | Logs$doctorsCommentsArgs<ExtArgs>
     _count?: boolean | LogsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LogsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type LogsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    doctor?: boolean | Logs$doctorArgs<ExtArgs>
+    doctor?: boolean | UserDefaultArgs<ExtArgs>
     patient?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $LogsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Logs"
     objects: {
-      doctor: Prisma.$UserPayload<ExtArgs> | null
+      doctor: Prisma.$UserPayload<ExtArgs>
       patient: Prisma.$UserPayload<ExtArgs>
       doctorsComments: Prisma.$DoctorsCommentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       uuid: string
-      doctorId: number | null
+      doctorId: number
       patientId: number
       filePath: string
       createdAt: Date
@@ -3011,7 +3011,7 @@ export namespace Prisma {
    */
   export interface Prisma__LogsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    doctor<T extends Logs$doctorArgs<ExtArgs> = {}>(args?: Subset<T, Logs$doctorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    doctor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     patient<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     doctorsComments<T extends Logs$doctorsCommentsArgs<ExtArgs> = {}>(args?: Subset<T, Logs$doctorsCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorsCommentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3447,25 +3447,6 @@ export namespace Prisma {
      * Limit how many Logs to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Logs.doctor
-   */
-  export type Logs$doctorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -4704,14 +4685,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   /**
    * Field references
    */
@@ -4869,11 +4842,11 @@ export namespace Prisma {
     NOT?: LogsWhereInput | LogsWhereInput[]
     id?: IntFilter<"Logs"> | number
     uuid?: UuidFilter<"Logs"> | string
-    doctorId?: IntNullableFilter<"Logs"> | number | null
+    doctorId?: IntFilter<"Logs"> | number
     patientId?: IntFilter<"Logs"> | number
     filePath?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
-    doctor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    doctor?: XOR<UserScalarRelationFilter, UserWhereInput>
     patient?: XOR<UserScalarRelationFilter, UserWhereInput>
     doctorsComments?: DoctorsCommentsListRelationFilter
   }
@@ -4881,7 +4854,7 @@ export namespace Prisma {
   export type LogsOrderByWithRelationInput = {
     id?: SortOrder
     uuid?: SortOrder
-    doctorId?: SortOrderInput | SortOrder
+    doctorId?: SortOrder
     patientId?: SortOrder
     filePath?: SortOrder
     createdAt?: SortOrder
@@ -4896,11 +4869,11 @@ export namespace Prisma {
     AND?: LogsWhereInput | LogsWhereInput[]
     OR?: LogsWhereInput[]
     NOT?: LogsWhereInput | LogsWhereInput[]
-    doctorId?: IntNullableFilter<"Logs"> | number | null
+    doctorId?: IntFilter<"Logs"> | number
     patientId?: IntFilter<"Logs"> | number
     filePath?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
-    doctor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    doctor?: XOR<UserScalarRelationFilter, UserWhereInput>
     patient?: XOR<UserScalarRelationFilter, UserWhereInput>
     doctorsComments?: DoctorsCommentsListRelationFilter
   }, "id" | "uuid">
@@ -4908,7 +4881,7 @@ export namespace Prisma {
   export type LogsOrderByWithAggregationInput = {
     id?: SortOrder
     uuid?: SortOrder
-    doctorId?: SortOrderInput | SortOrder
+    doctorId?: SortOrder
     patientId?: SortOrder
     filePath?: SortOrder
     createdAt?: SortOrder
@@ -4925,7 +4898,7 @@ export namespace Prisma {
     NOT?: LogsScalarWhereWithAggregatesInput | LogsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Logs"> | number
     uuid?: UuidWithAggregatesFilter<"Logs"> | string
-    doctorId?: IntNullableWithAggregatesFilter<"Logs"> | number | null
+    doctorId?: IntWithAggregatesFilter<"Logs"> | number
     patientId?: IntWithAggregatesFilter<"Logs"> | number
     filePath?: StringWithAggregatesFilter<"Logs"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Logs"> | Date | string
@@ -5079,7 +5052,7 @@ export namespace Prisma {
     uuid?: string
     filePath: string
     createdAt?: Date | string
-    doctor?: UserCreateNestedOneWithoutDoctorInput
+    doctor: UserCreateNestedOneWithoutDoctorInput
     patient: UserCreateNestedOneWithoutPatientInput
     doctorsComments?: DoctorsCommentsCreateNestedManyWithoutLogInput
   }
@@ -5087,7 +5060,7 @@ export namespace Prisma {
   export type LogsUncheckedCreateInput = {
     id?: number
     uuid?: string
-    doctorId?: number | null
+    doctorId: number
     patientId: number
     filePath: string
     createdAt?: Date | string
@@ -5098,7 +5071,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: UserUpdateOneWithoutDoctorNestedInput
+    doctor?: UserUpdateOneRequiredWithoutDoctorNestedInput
     patient?: UserUpdateOneRequiredWithoutPatientNestedInput
     doctorsComments?: DoctorsCommentsUpdateManyWithoutLogNestedInput
   }
@@ -5106,7 +5079,7 @@ export namespace Prisma {
   export type LogsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
-    doctorId?: NullableIntFieldUpdateOperationsInput | number | null
+    doctorId?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5116,7 +5089,7 @@ export namespace Prisma {
   export type LogsCreateManyInput = {
     id?: number
     uuid?: string
-    doctorId?: number | null
+    doctorId: number
     patientId: number
     filePath: string
     createdAt?: Date | string
@@ -5131,7 +5104,7 @@ export namespace Prisma {
   export type LogsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
-    doctorId?: NullableIntFieldUpdateOperationsInput | number | null
+    doctorId?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5382,30 +5355,9 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type LogsCountOrderByAggregateInput = {
@@ -5445,22 +5397,6 @@ export namespace Prisma {
     id?: SortOrder
     doctorId?: SortOrder
     patientId?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type LogsScalarRelationFilter = {
@@ -5679,12 +5615,10 @@ export namespace Prisma {
     connect?: DoctorsCommentsWhereUniqueInput | DoctorsCommentsWhereUniqueInput[]
   }
 
-  export type UserUpdateOneWithoutDoctorNestedInput = {
+  export type UserUpdateOneRequiredWithoutDoctorNestedInput = {
     create?: XOR<UserCreateWithoutDoctorInput, UserUncheckedCreateWithoutDoctorInput>
     connectOrCreate?: UserCreateOrConnectWithoutDoctorInput
     upsert?: UserUpsertWithoutDoctorInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDoctorInput, UserUpdateWithoutDoctorInput>, UserUncheckedUpdateWithoutDoctorInput>
   }
@@ -5709,14 +5643,6 @@ export namespace Prisma {
     update?: DoctorsCommentsUpdateWithWhereUniqueWithoutLogInput | DoctorsCommentsUpdateWithWhereUniqueWithoutLogInput[]
     updateMany?: DoctorsCommentsUpdateManyWithWhereWithoutLogInput | DoctorsCommentsUpdateManyWithWhereWithoutLogInput[]
     deleteMany?: DoctorsCommentsScalarWhereInput | DoctorsCommentsScalarWhereInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type DoctorsCommentsUncheckedUpdateManyWithoutLogNestedInput = {
@@ -5897,44 +5823,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type LogsCreateWithoutDoctorInput = {
     uuid?: string
     filePath: string
@@ -5966,14 +5854,14 @@ export namespace Prisma {
     uuid?: string
     filePath: string
     createdAt?: Date | string
-    doctor?: UserCreateNestedOneWithoutDoctorInput
+    doctor: UserCreateNestedOneWithoutDoctorInput
     doctorsComments?: DoctorsCommentsCreateNestedManyWithoutLogInput
   }
 
   export type LogsUncheckedCreateWithoutPatientInput = {
     id?: number
     uuid?: string
-    doctorId?: number | null
+    doctorId: number
     filePath: string
     createdAt?: Date | string
     doctorsComments?: DoctorsCommentsUncheckedCreateNestedManyWithoutLogInput
@@ -6036,7 +5924,7 @@ export namespace Prisma {
     NOT?: LogsScalarWhereInput | LogsScalarWhereInput[]
     id?: IntFilter<"Logs"> | number
     uuid?: UuidFilter<"Logs"> | string
-    doctorId?: IntNullableFilter<"Logs"> | number | null
+    doctorId?: IntFilter<"Logs"> | number
     patientId?: IntFilter<"Logs"> | number
     filePath?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
@@ -6283,14 +6171,14 @@ export namespace Prisma {
     uuid?: string
     filePath: string
     createdAt?: Date | string
-    doctor?: UserCreateNestedOneWithoutDoctorInput
+    doctor: UserCreateNestedOneWithoutDoctorInput
     patient: UserCreateNestedOneWithoutPatientInput
   }
 
   export type LogsUncheckedCreateWithoutDoctorsCommentsInput = {
     id?: number
     uuid?: string
-    doctorId?: number | null
+    doctorId: number
     patientId: number
     filePath: string
     createdAt?: Date | string
@@ -6350,14 +6238,14 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: UserUpdateOneWithoutDoctorNestedInput
+    doctor?: UserUpdateOneRequiredWithoutDoctorNestedInput
     patient?: UserUpdateOneRequiredWithoutPatientNestedInput
   }
 
   export type LogsUncheckedUpdateWithoutDoctorsCommentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
-    doctorId?: NullableIntFieldUpdateOperationsInput | number | null
+    doctorId?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6374,7 +6262,7 @@ export namespace Prisma {
   export type LogsCreateManyPatientInput = {
     id?: number
     uuid?: string
-    doctorId?: number | null
+    doctorId: number
     filePath: string
     createdAt?: Date | string
   }
@@ -6416,14 +6304,14 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: UserUpdateOneWithoutDoctorNestedInput
+    doctor?: UserUpdateOneRequiredWithoutDoctorNestedInput
     doctorsComments?: DoctorsCommentsUpdateManyWithoutLogNestedInput
   }
 
   export type LogsUncheckedUpdateWithoutPatientInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
-    doctorId?: NullableIntFieldUpdateOperationsInput | number | null
+    doctorId?: IntFieldUpdateOperationsInput | number
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorsComments?: DoctorsCommentsUncheckedUpdateManyWithoutLogNestedInput
@@ -6432,7 +6320,7 @@ export namespace Prisma {
   export type LogsUncheckedUpdateManyWithoutPatientInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
-    doctorId?: NullableIntFieldUpdateOperationsInput | number | null
+    doctorId?: IntFieldUpdateOperationsInput | number
     filePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
