@@ -1,6 +1,5 @@
 const enum API_ROUTES {
   GENERAL = '',
-  DEVICE = '/devices',
   AUTH = '/auth',
 }
 

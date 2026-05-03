@@ -6,9 +6,7 @@ import helmet from '@fastify/helmet';
 import websocket from '@fastify/websocket';
 import { logger } from '../libs';
 import { API_ROUTES, API_VERSION, HTTP_STATUS_CODE } from '../helpers';
-import deviceSocket from '../sockets/device.socket';
-import { initArduinoListener } from '../listeners/serial.listener';
-import { authRoutes, deviceRoutes } from '../routes';
+//import { authRoutes } from '../routes';
 
 const { PORT, NODE_ENV } = process.env;
 
@@ -37,7 +35,7 @@ const server = async () => {
 
   await app.register(websocket);
 
-  await app.register(deviceSocket);
+  //await app.register(deviceSocket);
 
   // Root route
   app.get('/', async (_req, reply) => {
@@ -45,8 +43,7 @@ const server = async () => {
   });
 
   // Routes with prefix
-  app.register(authRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.AUTH}` });
-  app.register(deviceRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.DEVICE}` });
+  //app.register(authRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.AUTH}` });
 
   // 404 handler
   app.setNotFoundHandler((_req, reply) => {
@@ -67,12 +64,6 @@ const server = async () => {
 
   await app.listen({ port: parseInt(PORT || '8080', 10), host: '0.0.0.0' });
   logger.info(`[FASTIFY APP] Server listening on port ${PORT}`);
-
-  initArduinoListener((newRecord) => {
-    app.broadcastDeviceData(newRecord);
-
-    logger.info(`[BROADCAST] Gecis yapildi`);
-  });
 
   return app;
 };
