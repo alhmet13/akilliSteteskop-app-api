@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Roles {
+  admin
+  doctor
+  patient
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  uuid            String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String            @db.VarChar(250)
+  email           String            @unique
+  password        String            @db.VarChar(250)
+  role            Roles
+  createdAt       DateTime          @default(now())
+  doctor          Logs[]            @relation("Doctor")
+  patient         Logs[]            @relation("Patient")
+  doctorsComments DoctorsComments[]
+}
+
+model Logs {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  doctorId  Int?
+  patientId Int
+  filePath  String
+  createdAt DateTime @default(now())
+
+  doctor          User?             @relation("Doctor", fields: [doctorId], references: [id])
+  patient         User              @relation("Patient", fields: [patientId], references: [id])
+  doctorsComments DoctorsComments[]
+}
+
+model DoctorsComments {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  doctorId  Int
+  logId     Int
+  content   String
+  createdAt DateTime @default(now())
+
+  doctor User @relation(fields: [doctorId], references: [id])
+  log    Logs @relation(fields: [logId], references: [id])
+}
